@@ -34,6 +34,12 @@ fun Cell(
         .clickable { onClick(position) }
     ) {
         println("@@@sign?.toString(): ${sign?.toString()}")
+        val textColor: Color = if (sign == PlayerSign.X) {
+            Color.Blue
+        } else {
+            Color.Red
+        }
+
         Text(
             text = sign?.toString() ?: "",
             textAlign = TextAlign.Center,
@@ -42,7 +48,7 @@ fun Cell(
                 .align(alignment = Alignment.Center)
                 .wrapContentHeight(align = Alignment.CenterVertically),
             fontSize = 48.sp,
-            color = Color.Blue
+            color = textColor
         )
     }
 }
