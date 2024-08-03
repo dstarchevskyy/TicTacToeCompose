@@ -21,10 +21,18 @@ fun DrawCells(
     cellsState: Map<CellPosition, PlayerSign?> = emptyMap(),
     onClick: (CellPosition) -> Unit
 ) {
-    MyRow(onClick = onClick)
+    println("@@@DrawCells: $cellsState")
+
+    MyRow(
+        onClick = onClick,
+        cellsState = cellsState
+    )
 }
 @Composable
-private fun MyRow(onClick: (CellPosition) -> Unit) {
+private fun MyRow(
+    cellsState: Map<CellPosition, PlayerSign?>,
+    onClick: (CellPosition) -> Unit
+) {
     Row(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.Red),
@@ -35,6 +43,7 @@ private fun MyRow(onClick: (CellPosition) -> Unit) {
                 .weight(1f, true)
                 .border(3.dp, color = Color.Blue)) {
                 MyColumn(
+                    cellsState = cellsState,
                     x = x,
                     onClick = onClick
                 )
@@ -45,6 +54,7 @@ private fun MyRow(onClick: (CellPosition) -> Unit) {
 
 @Composable
 private fun MyColumn(
+    cellsState: Map<CellPosition, PlayerSign?>,
     x: Int,
     onClick: (CellPosition) -> Unit
 ) {
@@ -54,11 +64,15 @@ private fun MyColumn(
                 .fillMaxSize()
                 .weight(1f, true)
                 .border(3.dp, color = Color.Blue)) {
+
+                val cellPosition = CellPosition(
+                    x = x,
+                    y = y,
+                )
+
                 Cell(
-                    position = CellPosition(
-                        x = x,
-                        y = y,
-                    ),
+                    position = cellPosition,
+                    sign = cellsState[cellPosition],
                     onClick = {
                         onClick(CellPosition(x = x, y = y))
                     }
