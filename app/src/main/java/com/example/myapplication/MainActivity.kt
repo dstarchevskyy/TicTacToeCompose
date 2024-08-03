@@ -1,12 +1,14 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.State
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.domain.PlayerSign
 import com.example.myapplication.ui.DrawCells
@@ -29,11 +31,20 @@ class MainActivity : ComponentActivity() {
 
                 val state: State<GameState> = vm.uiStateFlow.collectAsStateWithLifecycle()
 
+                state.value.failure?.let {
+                    handleFailure(failure = it)
+                }
+
                 DrawCells(
                     cellsState = state.value.cellsState,
                     onClick = onClick
                 )
             }
         }
+    }
+
+    private fun handleFailure(failure: Failure) {
+        vm.resetFailure()
+        Toast.makeText(this, failure.errorMessage, Toast.LENGTH_SHORT).show()
     }
 }
