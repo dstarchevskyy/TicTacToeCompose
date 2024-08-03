@@ -1,10 +1,12 @@
 package com.example.myapplication.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +27,7 @@ fun Cell(
         .border(
             border = BorderStroke(
                 width = 5.dp,
-                color = Color.Yellow
+                color = Color.Black
             )
         )
         .clickable { onClick(position) }
@@ -34,8 +36,12 @@ fun Cell(
         Text(
             text = sign?.toString() ?: "",
             textAlign = TextAlign.Center,
+
             modifier = Modifier.fillMaxSize()
-                .align(alignment = Alignment.Center),
+                .background(color = Color.Yellow)
+                .align(alignment = Alignment.Center)
+                .wrapContentHeight(align = Alignment.CenterVertically),
+
             color = Color.Blue
         )
     }
