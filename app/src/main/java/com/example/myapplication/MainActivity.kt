@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
     private val vm: GameViewModel = GameViewModel()
 
     private val onClick: (CellPosition) -> Unit = { position ->
-        println("@@@test!!! x:${position.x}, y:${position.y}")
         vm.onCellClick(position = position)
     }
 
@@ -25,25 +24,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val cellsState: Map<CellPosition, PlayerSign?> = vm.uiStateFlow.value.cellsState
-        
         setContent {
             MyApplicationTheme {
 
                 val state: State<GameState> = vm.uiStateFlow.collectAsStateWithLifecycle()
 
-
                 DrawCells(
-//                    cellsState = cellsState,
                     cellsState = state.value.cellsState,
                     onClick = onClick
                 )
-            }
-        }
-
-        lifecycleScope.launch {
-            vm.uiStateFlow.collect {
-                println("@@@collect: $it")
             }
         }
     }

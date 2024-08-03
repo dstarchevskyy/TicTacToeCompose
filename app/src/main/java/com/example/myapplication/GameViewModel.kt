@@ -11,11 +11,23 @@ class GameViewModel {
 
     fun onCellClick(position: CellPosition) {
         println("@@@onCellClick: $position")
-        val newCellState: MutableMap<CellPosition, PlayerSign?> = _uiStateFlow.value.cellsState.toMutableMap()
-        newCellState[position] = PlayerSign.X
+        val currentGameStat: GameState = uiStateFlow.value
+        
+        val newCellState: MutableMap<CellPosition, PlayerSign?> = currentGameStat.cellsState.toMutableMap()
+        newCellState[position] = currentGameStat.turn
 
-        _uiStateFlow.value = GameState(
-            cellsState = newCellState
+        val newGameState: GameState = currentGameStat.copy(
+            cellsState = newCellState,
+            turn = getNewTurn(currentGameStat.turn)
         )
+        _uiStateFlow.value = newGameState
+    }
+
+    private fun getNewTurn(currentTurn: PlayerSign): PlayerSign {
+        return if (currentTurn == PlayerSign.X) {
+            PlayerSign.O
+        } else {
+            PlayerSign.X
+        }
     }
 }

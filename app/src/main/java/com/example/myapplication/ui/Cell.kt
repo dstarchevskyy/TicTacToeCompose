@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.domain.PlayerSign
 
@@ -36,12 +37,11 @@ fun Cell(
         Text(
             text = sign?.toString() ?: "",
             textAlign = TextAlign.Center,
-
             modifier = Modifier.fillMaxSize()
                 .background(color = Color.Yellow)
                 .align(alignment = Alignment.Center)
                 .wrapContentHeight(align = Alignment.CenterVertically),
-
+            fontSize = 48.sp,
             color = Color.Blue
         )
     }
