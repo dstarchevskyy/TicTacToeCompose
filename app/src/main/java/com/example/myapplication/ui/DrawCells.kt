@@ -21,28 +21,10 @@ fun DrawCells(
     cellsState: Map<CellPosition, PlayerSign?> = emptyMap(),
     onClick: (CellPosition) -> Unit
 ) {
-    MyRow()
+    MyRow(onClick = onClick)
 }
-
 @Composable
-private fun MyColumn(
-    x: Int
-) {
-    Column() {
-        for (y in 0..MAX_CELL_NUMBER) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .weight(1f, true)
-                .border(3.dp, color = Color.Blue)
-                .padding(20.dp)) {
-                Text(text = "Y1")
-            }
-        }
-    }
-}
-
-@Composable
-private fun MyRow() {
+private fun MyRow(onClick: (CellPosition) -> Unit) {
     Row(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.Red),
@@ -51,9 +33,36 @@ private fun MyRow() {
             Box(modifier = Modifier
                 .fillMaxSize()
                 .weight(1f, true)
-                .border(3.dp, color = Color.Blue)
-                .padding(20.dp)) {
-                MyColumn(x = x)
+                .border(3.dp, color = Color.Blue)) {
+                MyColumn(
+                    x = x,
+                    onClick = onClick
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MyColumn(
+    x: Int,
+    onClick: (CellPosition) -> Unit
+) {
+    Column() {
+        for (y in 0..MAX_CELL_NUMBER) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .weight(1f, true)
+                .border(3.dp, color = Color.Blue)) {
+                Cell(
+                    position = CellPosition(
+                        x = x,
+                        y = y,
+                    ),
+                    onClick = {
+                        onClick(CellPosition(x = x, y = y))
+                    }
+                )
             }
         }
     }

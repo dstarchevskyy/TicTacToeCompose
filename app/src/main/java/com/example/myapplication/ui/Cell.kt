@@ -19,22 +19,19 @@ import com.example.myapplication.domain.CellPosition
 @Composable
 fun Cell(
     position: CellPosition,
-    modifier: Modifier,
     onClick: (CellPosition) -> Unit) {
     Box(modifier = Modifier
+        .fillMaxSize()
         .border(
             border = BorderStroke(
                 width = 5.dp,
-                color = Color.Red
+                color = Color.Yellow
             )
         )
         .clickable { onClick(position) }
     ) {
         Text(
             text = "X",
-            modifier = modifier.padding(
-                20.dp
-            )
         )
     }
 }

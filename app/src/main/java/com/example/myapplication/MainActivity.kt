@@ -30,28 +30,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyApplicationTheme {
-                val emptyCells: List<PlayerSign?> = listOf(null, null, null)
-
                 DrawCells(
                     cellsState = gameState.cellsState,
                     onClick = onClick
                 )
-//                LazyColumn(Modifier.fillMaxSize()) {
-//                    itemsIndexed(emptyCells) { index, sign ->
-//                        LazyRow(Modifier.fillMaxSize()) {
-//                            itemsIndexed(emptyCells) { index, sign ->
-//                                Cell(
-//                                    modifier = Modifier,
-//                                    onClick = onClick,
-//                                    position = CellPosition(
-//                                        x = index,
-//                                        y = 0
-//                                    )
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
             }
         }
     }
