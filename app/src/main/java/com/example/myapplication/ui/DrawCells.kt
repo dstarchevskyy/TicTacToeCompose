@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.domain.CellPosition
@@ -25,7 +27,8 @@ fun DrawCells(
 
     MyRow(
         onClick = onClick,
-        cellsState = cellsState
+        cellsState = cellsState,
+
     )
 }
 @Composable
@@ -35,7 +38,8 @@ private fun MyRow(
 ) {
     Row(modifier = Modifier
         .fillMaxSize()
-        .background(color = Color.Red),
+        .background(color = Color.Red)
+        ,
     ) {
         for (x in 0..MAX_CELL_NUMBER) {
             Box(modifier = Modifier
