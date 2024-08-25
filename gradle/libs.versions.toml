@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+hiltAndroidCompilerVersion = "2.44"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -11,10 +12,11 @@ composeBom = "2024.06.00"
 lifecycleRuntimeComposeAndroid = "2.8.4"
 navigationCompoe = "2.7.7"
 kotlinxSerialization = "1.5.1"
-hiltPlugon = "2.48"
+hilt = "2.48"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+dagger-hilt-android-compiler-v244 = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompilerVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -31,11 +33,13 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 
 android-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompoe"}
-korlintSerialization = { group = "org.jetbrains.kotlinx",  name = "kotlinx-serialization-core-jvm", version.ref = "kotlinxSerialization"}
+korlintSerialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core-jvm", version.ref = "kotlinxSerialization"}
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugon" }
+hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
