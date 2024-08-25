@@ -11,6 +11,7 @@ composeBom = "2024.06.00"
 lifecycleRuntimeComposeAndroid = "2.8.4"
 navigationCompoe = "2.7.7"
 kotlinxSerialization = "1.5.1"
+hiltPlugon = "2.48"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,5 +36,6 @@ korlintSerialization = { group = "org.jetbrains.kotlinx",  name = "kotlinx-seria
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugon" }
 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
