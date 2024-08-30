@@ -75,6 +75,8 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.dagger.hilt.android.compiler.v244)
+
+    implementation(libs.androidx.hilt.navigation.compose)
 }
 
 kapt {

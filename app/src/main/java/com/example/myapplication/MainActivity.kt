@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -38,10 +39,12 @@ import com.example.myapplication.ui.DrawCells
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val vm: GameViewModel = GameViewModel()
+    private lateinit var vm: GameViewModel
     private lateinit var state: State<GameState>
+
     private val onClick: (CellPosition) -> Unit = { position ->
         vm.onCellClick(position = position)
     }
@@ -53,6 +56,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
+            vm = hiltViewModel()
+
             state = vm.uiStateFlow.collectAsStateWithLifecycle()
 
             MyApplicationTheme {
