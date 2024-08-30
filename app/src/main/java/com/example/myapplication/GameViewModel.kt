@@ -1,12 +1,16 @@
 package com.example.myapplication
 
+import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.domain.PlayerSign
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
-class GameViewModel {
+@HiltViewModel
+class GameViewModel @Inject constructor(): ViewModel() {
     private val _uiStateFlow: MutableStateFlow<GameState> = MutableStateFlow(GameState())
     val uiStateFlow: StateFlow<GameState> = _uiStateFlow
 

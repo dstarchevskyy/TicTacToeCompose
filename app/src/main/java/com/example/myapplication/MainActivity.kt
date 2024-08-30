@@ -36,7 +36,9 @@ import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.ui.DrawCells
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val vm: GameViewModel = GameViewModel()
     private lateinit var state: State<GameState>
