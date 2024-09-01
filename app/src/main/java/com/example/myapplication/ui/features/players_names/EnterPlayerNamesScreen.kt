@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.R
+import com.example.myapplication.ui.navigation.NavRoutes
 
 @Composable
 fun EnterPlayerNamesScreen(
@@ -51,8 +52,7 @@ fun EnterPlayerNamesScreen(
         Button(
             modifier = Modifier.padding(top = 20.dp),
             onClick = {
-                println("@@@BUTTON")
-                onNavAction("GameRoute")
+                onNavAction(NavRoutes.ROUTE_GAME)
             }) {
             Text(text = stringResource(id = R.string.start_game))
         }
