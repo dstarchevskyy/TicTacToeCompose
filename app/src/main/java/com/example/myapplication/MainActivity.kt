@@ -35,7 +35,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
-import com.example.myapplication.ui.DrawCells
+import com.example.myapplication.ui.features.game.GameScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,10 +63,14 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 navController = rememberNavController()
 
-//                NavHost(navController = navController, startDestination = "GameRoute") {
                 NavHost(navController = navController, startDestination = "EnterYourNames") {
                     composable("EnterYourNames") { EnterPlayerNamesScreen() }
-                    composable("GameRoute") { GameScreen() }
+                    composable("GameRoute") {
+                        GameScreen(
+                            cellsState = state.value.cellsState,
+                            onClick = onClick
+                        )
+                    }
                 }
 
                 state.value.failure?.let {
@@ -96,14 +100,6 @@ class MainActivity : ComponentActivity() {
                 strokeWidth = 15f,
             )
         }
-    }
-
-    @Composable
-    fun GameScreen() {
-        DrawCells(
-            cellsState = state.value.cellsState,
-            onClick = onClick
-        )
     }
 
     @Composable
