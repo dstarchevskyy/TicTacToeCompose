@@ -36,8 +36,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.ui.features.game.GameScreen
+import com.example.myapplication.ui.features.players_names.EnterPlayerNamesScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.round
 
 
 @AndroidEntryPoint
@@ -47,6 +49,10 @@ class MainActivity : ComponentActivity() {
 
     private val onClick: (CellPosition) -> Unit = { position ->
         vm.onCellClick(position = position)
+    }
+
+    private val onNavAction: (String) -> Unit = { route ->
+        navController.navigate(route = route)
     }
 
     private lateinit var navController: NavHostController
@@ -64,7 +70,11 @@ class MainActivity : ComponentActivity() {
                 navController = rememberNavController()
 
                 NavHost(navController = navController, startDestination = "EnterYourNames") {
-                    composable("EnterYourNames") { EnterPlayerNamesScreen() }
+                    composable("EnterYourNames") {
+                        EnterPlayerNamesScreen(
+                            onNavAction = onNavAction
+                        )
+                    }
                     composable("GameRoute") {
                         GameScreen(
                             cellsState = state.value.cellsState,
@@ -102,42 +112,42 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    fun EnterPlayerNamesScreen() {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-            Text(text = stringResource(id = R.string.enter_your_names))
-
-            var player1Text by rememberSaveable { mutableStateOf("Player 1") }
-            var player2Text by rememberSaveable { mutableStateOf("Player 2") }
-
-            TextField(
-                value = player1Text,
-                modifier = Modifier.padding(top = 20.dp),
-                onValueChange = { player1Text = it },
-                label = { Text(text = stringResource(id = R.string.player_1)) }
-            )
-
-            TextField(
-                value = player2Text,
-                modifier = Modifier.padding(top = 20.dp),
-                onValueChange = { player2Text = it },
-                label = { Text(text = stringResource(id = R.string.player_2)) }
-            )
-
-            Button(
-                modifier = Modifier.padding(top = 20.dp),
-                onClick = {
-                println("@@@BUTTON")
-                navController.navigate(route = "GameRoute")
-            }) {
-                Text(text = stringResource(id = R.string.start_game))
-            }
-        }
-    }
+//    @Composable
+//    fun EnterPlayerNamesScreen() {
+//        Column(modifier = Modifier
+//            .fillMaxSize()
+//            .padding(20.dp),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//
+//            Text(text = stringResource(id = R.string.enter_your_names))
+//
+//            var player1Text by rememberSaveable { mutableStateOf("Player 1") }
+//            var player2Text by rememberSaveable { mutableStateOf("Player 2") }
+//
+//            TextField(
+//                value = player1Text,
+//                modifier = Modifier.padding(top = 20.dp),
+//                onValueChange = { player1Text = it },
+//                label = { Text(text = stringResource(id = R.string.player_1)) }
+//            )
+//
+//            TextField(
+//                value = player2Text,
+//                modifier = Modifier.padding(top = 20.dp),
+//                onValueChange = { player2Text = it },
+//                label = { Text(text = stringResource(id = R.string.player_2)) }
+//            )
+//
+//            Button(
+//                modifier = Modifier.padding(top = 20.dp),
+//                onClick = {
+//                println("@@@BUTTON")
+//                navController.navigate(route = "GameRoute")
+//            }) {
+//                Text(text = stringResource(id = R.string.start_game))
+//            }
+//        }
+//    }
 }
