@@ -24,6 +24,7 @@ import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.ui.features.game.GameScreen
 import com.example.myapplication.ui.features.players_names.EnterPlayerNamesScreen
+import com.example.myapplication.ui.features.players_names.PlayerNamesViewModel
 import com.example.myapplication.ui.navigation.NavRoutes
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var vm: GameViewModel
+    private lateinit var playerNamesViewModel: GameViewModel
     private lateinit var state: State<GameState>
 
     private val onClick: (CellPosition) -> Unit = { position ->
@@ -61,8 +63,10 @@ class MainActivity : ComponentActivity() {
                     startDestination = NavRoutes.ROUTE_PLAYER_NAMES
                 ) {
                     composable(NavRoutes.ROUTE_PLAYER_NAMES) {
+                        val playerNamesViewModel = hiltViewModel<PlayerNamesViewModel>()
                         EnterPlayerNamesScreen(
-                            onNavAction = onNavAction
+                            onNavAction = onNavAction,
+                            playerNamesStateFlow = playerNamesViewModel.uiStateFlow
                         )
                     }
                     composable(NavRoutes.ROUTE_GAME) {

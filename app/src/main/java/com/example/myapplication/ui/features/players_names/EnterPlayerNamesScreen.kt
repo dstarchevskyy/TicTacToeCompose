@@ -8,6 +8,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -16,13 +17,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.myapplication.R
 import com.example.myapplication.ui.navigation.NavRoutes
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun EnterPlayerNamesScreen(
-    onNavAction: (String) -> Unit
+    onNavAction: (String) -> Unit,
+    playerNamesStateFlow: StateFlow<PlayerNamesState>
 ) {
+    val state: State<PlayerNamesState> = playerNamesStateFlow.collectAsStateWithLifecycle()
+
+    println("@@@state: ${state}")
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(20.dp),
