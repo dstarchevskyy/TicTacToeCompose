@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
+import com.example.myapplication.domain.PlayerNames
 import com.example.myapplication.ui.features.game.GameScreen
 import com.example.myapplication.ui.features.players_names.EnterPlayerNamesScreen
 import com.example.myapplication.ui.features.players_names.PlayerNamesViewModel
@@ -64,9 +65,15 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(NavRoutes.ROUTE_PLAYER_NAMES) {
                         val playerNamesViewModel = hiltViewModel<PlayerNamesViewModel>()
+
+                        val onClick: (PlayerNames) -> Unit = {
+                            playerNamesViewModel.onSaveClick(it)
+                        }
+
                         EnterPlayerNamesScreen(
                             onNavAction = onNavAction,
-                            playerNamesStateFlow = playerNamesViewModel.uiStateFlow
+                            playerNamesStateFlow = playerNamesViewModel.uiStateFlow,
+                            onClick = onClick
                         )
                     }
                     composable(NavRoutes.ROUTE_GAME) {

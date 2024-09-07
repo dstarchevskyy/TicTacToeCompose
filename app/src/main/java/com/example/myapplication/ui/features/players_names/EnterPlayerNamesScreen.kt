@@ -19,13 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.myapplication.R
+import com.example.myapplication.domain.PlayerNames
 import com.example.myapplication.ui.navigation.NavRoutes
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun EnterPlayerNamesScreen(
     onNavAction: (String) -> Unit,
-    playerNamesStateFlow: StateFlow<PlayerNamesState>
+    playerNamesStateFlow: StateFlow<PlayerNamesState>,
+    onClick: (PlayerNames) -> Unit
 ) {
     val state: State<PlayerNamesState> = playerNamesStateFlow.collectAsStateWithLifecycle()
 
@@ -40,8 +42,8 @@ fun EnterPlayerNamesScreen(
 
         Text(text = stringResource(id = R.string.enter_your_names))
 
-        var player1Text by rememberSaveable { mutableStateOf("Player 1") }
-        var player2Text by rememberSaveable { mutableStateOf("Player 2") }
+        var player1Text by rememberSaveable { mutableStateOf( state.value.playerNames.playerOneName ?: "Player 1") }
+        var player2Text by rememberSaveable { mutableStateOf(state.value.playerNames.playerTwoName ?: "Player 2") }
 
         TextField(
             value = player1Text,
@@ -60,6 +62,13 @@ fun EnterPlayerNamesScreen(
         Button(
             modifier = Modifier.padding(top = 20.dp),
             onClick = {
+                onClick(
+                    PlayerNames(
+                        playerOneName = player1Text,
+                        playerTwoName = player2Text
+                    )
+                )
+
                 onNavAction(NavRoutes.ROUTE_GAME)
             }) {
             Text(text = stringResource(id = R.string.start_game))
