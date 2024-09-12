@@ -3,6 +3,7 @@ package com.example.myapplication.ui.features.players_names
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -34,6 +35,7 @@ fun EnterPlayerNamesScreen(
     println("@@@state: ${state}")
 
     Column(modifier = Modifier
+        .imePadding()
         .fillMaxSize()
         .padding(20.dp),
         verticalArrangement = Arrangement.Center,
