@@ -22,7 +22,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
-import com.example.myapplication.ui.features.game.GameScreen
+import com.example.myapplication.ui.features.game.GameRootScreen
+import com.example.myapplication.ui.features.game.GameState
 import com.example.myapplication.ui.features.players_names.PlayerNamesRootScreen
 import com.example.myapplication.ui.navigation.NavRoutes
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -31,13 +32,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private lateinit var vm: GameViewModel
-    private lateinit var playerNamesViewModel: GameViewModel
-    private lateinit var state: State<GameState>
-
-    private val onClick: (CellPosition) -> Unit = { position ->
-        vm.onCellClick(position = position)
-    }
+//    private lateinit var vm: GameViewModel
+//    private lateinit var state: State<GameState>
 
     private val onNavAction: (String) -> Unit = { route ->
         navController.navigate(route = route)
@@ -50,9 +46,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            vm = hiltViewModel()
+//            vm = hiltViewModel()
 
-            state = vm.uiStateFlow.collectAsStateWithLifecycle()
+//            state = vm.uiStateFlow.collectAsStateWithLifecycle()
 
             MyApplicationTheme {
                 navController = rememberNavController()
@@ -65,24 +61,26 @@ class MainActivity : ComponentActivity() {
                         PlayerNamesRootScreen(onNavAction = onNavAction)
                     }
                     composable(NavRoutes.ROUTE_GAME) {
-                        GameScreen(
-                            cellsState = state.value.cellsState,
-                            onClick = onClick
-                        )
+                        GameRootScreen()
+
+//                        GameScreen(
+//                            cellsState = state.value.cellsState,
+//                            onClick = onClick
+//                        )
                     }
                 }
 
-                state.value.failure?.let {
-                    handleFailure(failure = it)
-                }
+//                state.value.failure?.let {
+//                    handleFailure(failure = it)
+//                }
             }
         }
     }
 
-    private fun handleFailure(failure: Failure) {
-        vm.resetFailure()
-        Toast.makeText(this, failure.errorMessage, Toast.LENGTH_SHORT).show()
-    }
+//    private fun handleFailure(failure: Failure) {
+//        vm.resetFailure()
+//        Toast.makeText(this, failure.errorMessage, Toast.LENGTH_SHORT).show()
+//    }
 
     @Composable
     private fun drawWinLine() {

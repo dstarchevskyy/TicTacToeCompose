@@ -2,6 +2,7 @@ package com.example.myapplication.ui.features.players_names
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.PlayerNames
 
 @Composable
@@ -18,4 +19,6 @@ fun PlayerNamesRootScreen(
         playerNamesStateFlow = playerNamesViewModel.uiStateFlow,
         onClick = onClick
     )
+
+
 }

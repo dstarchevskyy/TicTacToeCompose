@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui.features.game
 
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition

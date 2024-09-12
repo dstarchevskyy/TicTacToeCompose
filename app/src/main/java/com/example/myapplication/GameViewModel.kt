@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.domain.PlayerSign
+import com.example.myapplication.ui.features.game.GameState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
