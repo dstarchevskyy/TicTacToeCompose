@@ -37,8 +37,9 @@ fun DrawWinLine(
 private fun getWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
     val verticalWinData: WinData? = getVerticalWinData(cellsState)
     val horizontalWinData: WinData? = getHorizontalWinData(cellsState)
+    val mainDiagonalWinData: WinData? = getMainDiagonalWinData(cellsState)
 
-    return verticalWinData ?: horizontalWinData
+    return verticalWinData ?: horizontalWinData ?: mainDiagonalWinData
 }
 
 private fun getVerticalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
@@ -123,6 +124,43 @@ private fun getHorizontalWinData(cellsState: Map<CellPosition, PlayerSign?>): Wi
             position = rowNumber
         )
     }
+
+    return winData
+}
+
+private fun getMainDiagonalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
+    var signCrossCount: Int = 0
+    var signZeroCount: Int = 0
+    val winData: WinData?
+
+    for (diagonalPosition in 0..2) {
+            val cellPosition = CellPosition(x = diagonalPosition, y = diagonalPosition)
+            val sign: PlayerSign? = cellsState[cellPosition]
+
+            when (sign) {
+                PlayerSign.X -> {
+                    signCrossCount++
+                }
+                PlayerSign.O -> {
+                    signZeroCount++
+                }
+                null -> {
+                    continue
+                }
+            }
+        }
+
+    val winnerSign: PlayerSign = when {
+            signCrossCount == 3 -> PlayerSign.X
+            signZeroCount == 3 -> PlayerSign.O
+            else -> return null
+        }
+
+        winData = WinData(
+            winnerSign = winnerSign,
+            direction = WinData.WinDirection.MAIN_DIAGONAL,
+            position = null
+        )
 
     return winData
 }
