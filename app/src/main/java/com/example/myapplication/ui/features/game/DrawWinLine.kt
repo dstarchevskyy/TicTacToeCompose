@@ -38,8 +38,9 @@ private fun getWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
     val verticalWinData: WinData? = getVerticalWinData(cellsState)
     val horizontalWinData: WinData? = getHorizontalWinData(cellsState)
     val mainDiagonalWinData: WinData? = getMainDiagonalWinData(cellsState)
+    val secondaryDiagonalWinData: WinData? = getSecondaryDiagonalWinData(cellsState)
 
-    return verticalWinData ?: horizontalWinData ?: mainDiagonalWinData
+    return verticalWinData ?: horizontalWinData ?: mainDiagonalWinData ?: secondaryDiagonalWinData
 }
 
 private fun getVerticalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
@@ -161,6 +162,43 @@ private fun getMainDiagonalWinData(cellsState: Map<CellPosition, PlayerSign?>): 
             direction = WinData.WinDirection.MAIN_DIAGONAL,
             position = null
         )
+
+    return winData
+}
+
+private fun getSecondaryDiagonalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
+    var signCrossCount: Int = 0
+    var signZeroCount: Int = 0
+    val winData: WinData?
+
+    for (diagonalPosition in 0..2) {
+        val cellPosition = CellPosition(x = diagonalPosition, y = (2 - diagonalPosition))
+        val sign: PlayerSign? = cellsState[cellPosition]
+
+        when (sign) {
+            PlayerSign.X -> {
+                signCrossCount++
+            }
+            PlayerSign.O -> {
+                signZeroCount++
+            }
+            null -> {
+                continue
+            }
+        }
+    }
+
+    val winnerSign: PlayerSign = when {
+        signCrossCount == 3 -> PlayerSign.X
+        signZeroCount == 3 -> PlayerSign.O
+        else -> return null
+    }
+
+    winData = WinData(
+        winnerSign = winnerSign,
+        direction = WinData.WinDirection.SECONDARY_DIAGONAL,
+        position = null
+    )
 
     return winData
 }
