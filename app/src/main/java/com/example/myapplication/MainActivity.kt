@@ -53,21 +53,4 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-    @Composable
-    private fun drawWinLine() {
-        val configuration: Configuration = LocalConfiguration.current
-
-        val screenWidth: Float = configuration.screenWidthDp.toFloat()
-        val screenHeight: Float = configuration.screenHeightDp.toFloat()
-
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            drawLine(
-                color = Color.Cyan,
-                start = Offset.Zero,
-                end = Offset(screenWidth,screenHeight),
-                strokeWidth = 15f,
-            )
-        }
-    }
 }

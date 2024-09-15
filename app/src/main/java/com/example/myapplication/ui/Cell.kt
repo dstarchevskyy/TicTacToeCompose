@@ -35,7 +35,6 @@ fun Cell(
         )
         .clickable { onClick(position) }
     ) {
-        println("@@@sign?.toString(): ${sign?.toString()}")
         val textColor: Color = if (sign == PlayerSign.X) {
             Color.Blue
         } else {

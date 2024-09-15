@@ -28,7 +28,6 @@ class PlayerNamesViewModel @Inject constructor(
     }
 
     fun onSaveClick(playerNames: PlayerNames) {
-        println("@@@onSaveClick: $playerNames")
         savePlayerNames(playerNames)
     }
 }

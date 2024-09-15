@@ -32,8 +32,6 @@ fun EnterPlayerNamesScreen(
 ) {
     val state: State<PlayerNamesState> = playerNamesStateFlow.collectAsStateWithLifecycle()
 
-    println("@@@state: ${state}")
-
     Column(modifier = Modifier
         .imePadding()
         .fillMaxSize()

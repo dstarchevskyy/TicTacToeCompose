@@ -32,6 +32,8 @@ fun GameRootScreen(
         onClick = onClick
     )
 
+    DrawWinLine(cellsState = state.value.cellsState)
+
     state.value.failure?.let {
         HandleFailure(
             resetFailure = resetFailure,

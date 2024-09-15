@@ -20,8 +20,6 @@ fun DrawCells(
     cellsState: Map<CellPosition, PlayerSign?> = emptyMap(),
     onClick: (CellPosition) -> Unit
 ) {
-    println("@@@DrawCells: $cellsState")
-
     MyRow(
         onClick = onClick,
         cellsState = cellsState,
