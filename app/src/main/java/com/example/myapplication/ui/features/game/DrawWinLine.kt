@@ -31,23 +31,98 @@ fun DrawWinLine(
         )
     }
 
-    println("@@@isWin: ${isWin(cellsState)}")
+    println("@@@isWin: ${getWinData(cellsState)}")
 }
 
-private fun isWin(cellsState: Map<CellPosition, PlayerSign?>): Boolean {
-    var signCrossCount = 0
-    var signZeroCount = 0
+private fun getWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
+    val verticalWinData: WinData? = getVerticalWinData(cellsState)
+    val horizontalWinData: WinData? = getHorizontalWinData(cellsState)
 
-    for (i in 0..2) {
-        val cellPosition = CellPosition(0, i)
-        val sign: PlayerSign? = cellsState[cellPosition]
+    return verticalWinData ?: horizontalWinData
+}
 
-        when (sign) {
-            PlayerSign.X -> signCrossCount++
-            PlayerSign.O -> signZeroCount++
-            null -> continue
+private fun getVerticalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
+    var signCrossCount: Int
+    var signZeroCount: Int
+    var winnerSign: PlayerSign
+    var winData: WinData? = null
+
+    for (columnNumber: Int in 0..2) {
+        signCrossCount = 0
+        signZeroCount = 0
+
+        for (rowNumber in 0..2) {
+            val cellPosition = CellPosition(x = columnNumber, y = rowNumber)
+            val sign: PlayerSign? = cellsState[cellPosition]
+
+            when (sign) {
+                PlayerSign.X -> {
+                    signCrossCount++
+                }
+                PlayerSign.O -> {
+                    signZeroCount++
+                }
+                null -> {
+                    continue
+                }
+            }
         }
+
+        winnerSign = when {
+            signCrossCount == 3 -> PlayerSign.X
+            signZeroCount == 3 -> PlayerSign.O
+            else -> continue
+        }
+
+        winData = WinData(
+            winnerSign = winnerSign,
+            direction = WinData.WinDirection.VERTICAL,
+            position = columnNumber
+        )
     }
 
-    return (signCrossCount == 3 || signZeroCount == 3)
+    return winData
+}
+
+private fun getHorizontalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
+    var signCrossCount: Int
+    var signZeroCount: Int
+    var winnerSign: PlayerSign
+    var winData: WinData? = null
+
+    for (rowNumber: Int in 0..2) {
+        signCrossCount = 0
+        signZeroCount = 0
+
+        for (columnNumber in 0..2) {
+            val cellPosition = CellPosition(x = columnNumber, y = rowNumber)
+            val sign: PlayerSign? = cellsState[cellPosition]
+
+            when (sign) {
+                PlayerSign.X -> {
+                    signCrossCount++
+                }
+                PlayerSign.O -> {
+                    signZeroCount++
+                }
+                null -> {
+                    continue
+                }
+            }
+        }
+
+        winnerSign = when {
+            signCrossCount == 3 -> PlayerSign.X
+            signZeroCount == 3 -> PlayerSign.O
+            else -> continue
+        }
+
+        winData = WinData(
+            winnerSign = winnerSign,
+            direction = WinData.WinDirection.HORIZONATAL,
+            position = rowNumber
+        )
+    }
+
+    return winData
 }
