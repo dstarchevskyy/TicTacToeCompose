@@ -130,8 +130,8 @@ private fun getHorizontalWinData(cellsState: Map<CellPosition, PlayerSign?>): Wi
 }
 
 private fun getMainDiagonalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
-    var signCrossCount: Int = 0
-    var signZeroCount: Int = 0
+    var signCrossCount = 0
+    var signZeroCount = 0
     val winData: WinData?
 
     for (diagonalPosition in 0..2) {
@@ -167,8 +167,8 @@ private fun getMainDiagonalWinData(cellsState: Map<CellPosition, PlayerSign?>): 
 }
 
 private fun getSecondaryDiagonalWinData(cellsState: Map<CellPosition, PlayerSign?>): WinData? {
-    var signCrossCount: Int = 0
-    var signZeroCount: Int = 0
+    var signCrossCount = 0
+    var signZeroCount = 0
     val winData: WinData?
 
     for (diagonalPosition in 0..2) {
