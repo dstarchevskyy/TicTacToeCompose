@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.domain.PlayerSign
@@ -15,36 +16,31 @@ import com.example.myapplication.domain.PlayerSign
 fun DrawWinLine(
     cellsState: Map<CellPosition, PlayerSign?>
 ) {
-    val configuration: Configuration = LocalConfiguration.current
-
-    val density: Int =  configuration.densityDpi
-
-    val screenWidth: Float = (configuration.screenWidthDp.toFloat())// * density).toFloat()
-    val screenHeight: Float = (configuration.screenHeightDp.toFloat())// * density).toFloat()
-
-    println("@@@screenWidth: $screenWidth, screenHeight: $screenHeight")
-
     println("@@@isWin: ${getWinData(cellsState)}")
 
     val winData = getWinData(cellsState)
 
-    val startOffset: Offset
-    val endOffset: Offset
-
-    when {
-        winData?.direction == WinData.WinDirection.MAIN_DIAGONAL -> {
-            startOffset = Offset.Zero
-            endOffset = Offset(screenWidth,screenHeight)
-        }
-        winData?.direction == WinData.WinDirection.SECONDARY_DIAGONAL -> {
-            startOffset = Offset(screenWidth,0f)
-//            endOffset = Offset( 0f, screenHeight)
-            endOffset = Offset( 0f, 400f)
-        }
-        else -> return
-    }
+    var startOffset: Offset = Offset.Zero
+    var endOffset: Offset = Offset.Zero
 
     Canvas(modifier = Modifier.fillMaxSize()) {
+        val canvasWidth = size.width
+        val canvasHeight = size.height
+        println("@@@canvasWidth: $canvasWidth, canvasHeight: $canvasHeight")
+
+        when {
+            winData?.direction == WinData.WinDirection.MAIN_DIAGONAL -> {
+                startOffset = Offset.Zero
+                endOffset = Offset(canvasWidth, canvasHeight)
+            }
+            winData?.direction == WinData.WinDirection.SECONDARY_DIAGONAL -> {
+                startOffset = Offset(canvasWidth, 0f)
+                endOffset = Offset(0f, canvasHeight)
+            }
+            else -> { }
+        }
+
+
         drawLine(
             color = Color.Cyan,
             start = startOffset,
