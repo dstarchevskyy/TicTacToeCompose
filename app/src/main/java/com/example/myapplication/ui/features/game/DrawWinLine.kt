@@ -26,7 +26,8 @@ fun DrawWinLine(
     Canvas(modifier = Modifier.fillMaxSize()) {
         val canvasWidth = size.width
         val canvasHeight = size.height
-        println("@@@canvasWidth: $canvasWidth, canvasHeight: $canvasHeight")
+        val cellWidth = canvasWidth / 3
+        val cellHalfWidth = cellWidth / 2
 
         when {
             winData?.direction == WinData.WinDirection.MAIN_DIAGONAL -> {
@@ -36,6 +37,18 @@ fun DrawWinLine(
             winData?.direction == WinData.WinDirection.SECONDARY_DIAGONAL -> {
                 startOffset = Offset(canvasWidth, 0f)
                 endOffset = Offset(0f, canvasHeight)
+            }
+            winData?.direction == WinData.WinDirection.VERTICAL -> {
+                val x: Float = (cellWidth * (winData.position ?: 0)) + cellHalfWidth
+
+                startOffset = Offset(
+                    x = x,
+                    y = 0f
+                )
+                endOffset = Offset(
+                    x = x,
+                    y = canvasHeight
+                )
             }
             else -> { }
         }
