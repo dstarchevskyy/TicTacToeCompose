@@ -26,8 +26,13 @@ fun DrawWinLine(
     Canvas(modifier = Modifier.fillMaxSize()) {
         val canvasWidth = size.width
         val canvasHeight = size.height
+
         val cellWidth = canvasWidth / 3
         val cellHalfWidth = cellWidth / 2
+
+        val cellHeight = canvasHeight / 3
+        val cellHalfHeight = cellHeight / 2
+
 
         when {
             winData?.direction == WinData.WinDirection.MAIN_DIAGONAL -> {
@@ -50,9 +55,21 @@ fun DrawWinLine(
                     y = canvasHeight
                 )
             }
+            winData?.direction == WinData.WinDirection.HORIZONATAL -> {
+                val y: Float = (cellHeight * (winData.position ?: 0)) + cellHalfHeight
+
+                startOffset = Offset(
+                    x = 0f,
+                    y = y
+                )
+                endOffset = Offset(
+                    x = canvasWidth,
+                    y = y
+                )
+            }
+
             else -> { }
         }
-
 
         drawLine(
             color = Color.Cyan,
