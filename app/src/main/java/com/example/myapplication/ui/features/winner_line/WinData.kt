@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.features.game
+package com.example.myapplication.ui.features.winner_line
 
 import com.example.myapplication.domain.PlayerSign
 

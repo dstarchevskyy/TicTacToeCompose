@@ -10,6 +10,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.myapplication.GameViewModel
 import com.example.myapplication.data.Failure
 import com.example.myapplication.domain.CellPosition
+import com.example.myapplication.ui.features.winner_line.DrawWinLine
 
 private lateinit var state: State<GameState>
 

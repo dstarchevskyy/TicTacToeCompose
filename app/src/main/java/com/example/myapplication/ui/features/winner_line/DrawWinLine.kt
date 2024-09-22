@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.features.game
+package com.example.myapplication.ui.features.winner_line
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
