@@ -1,14 +1,11 @@
 package com.example.myapplication.ui.features.game
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalConfiguration
 import com.example.myapplication.domain.CellPosition
 import com.example.myapplication.domain.PlayerSign
 
@@ -34,16 +31,16 @@ fun DrawWinLine(
         val cellHalfHeight = cellHeight / 2
 
 
-        when {
-            winData?.direction == WinData.WinDirection.MAIN_DIAGONAL -> {
+        when (winData?.direction) {
+            WinData.WinDirection.MAIN_DIAGONAL -> {
                 startOffset = Offset.Zero
                 endOffset = Offset(canvasWidth, canvasHeight)
             }
-            winData?.direction == WinData.WinDirection.SECONDARY_DIAGONAL -> {
+            WinData.WinDirection.SECONDARY_DIAGONAL -> {
                 startOffset = Offset(canvasWidth, 0f)
                 endOffset = Offset(0f, canvasHeight)
             }
-            winData?.direction == WinData.WinDirection.VERTICAL -> {
+            WinData.WinDirection.VERTICAL -> {
                 val x: Float = (cellWidth * (winData.position ?: 0)) + cellHalfWidth
 
                 startOffset = Offset(
@@ -55,7 +52,7 @@ fun DrawWinLine(
                     y = canvasHeight
                 )
             }
-            winData?.direction == WinData.WinDirection.HORIZONATAL -> {
+            WinData.WinDirection.HORIZONATAL -> {
                 val y: Float = (cellHeight * (winData.position ?: 0)) + cellHalfHeight
 
                 startOffset = Offset(
@@ -67,7 +64,6 @@ fun DrawWinLine(
                     y = y
                 )
             }
-
             else -> { }
         }
 
